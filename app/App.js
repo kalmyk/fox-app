@@ -2,10 +2,13 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Switch, Route, NavLink, BrowserRouter, HashRouter } from 'react-router-dom';
+
+import * as dataServer from './dataServer';
 import ChatApp from '../routes/chat/components/ChatApp';
+import * as ChatActions from '../routes/chat/actions';
+import TicketApp from '../routes/ticket/components/TicketApp';
 import SchemaApp from '../routes/schema/components/SchemaApp';
-import * as ChatDataServer from './ChatDataServer';
-import { Switch, Route, NavLink, BrowserRouter, HashRouter } from 'react-router-dom'
 
 const dark = 'hsl(200, 20%, 20%)'
 const light = '#fff'
@@ -37,6 +40,7 @@ const Header = () => (
         <div style={{ float: 'left' }}>
           <NavLink style={styles.link} activeStyle={styles.activeLink} to='/'>Home</NavLink>{' '}
           <NavLink style={styles.link} activeStyle={styles.activeLink} to='/chat'>Chat</NavLink>
+          <NavLink style={styles.link} activeStyle={styles.activeLink} to='/ticket'>Ticket</NavLink>
           <NavLink style={styles.link} activeStyle={styles.activeLink} to='/schema'>Schema</NavLink>
         </div>
         <div style={{ float: 'right' }}>
@@ -48,7 +52,7 @@ const Header = () => (
 
 const Home = () => (
   <div>
-    <h1>Welcome to the Chat!</h1>
+    <h1>Welcome to the Cooperation Platform!</h1>
   </div>
 )
 
@@ -57,6 +61,7 @@ const Main = () => (
     <Switch>
       <Route exact path='/' component={Home}/>
       <Route path='/chat' component={ChatApp}/>
+      <Route path='/ticket' component={TicketApp}/>
       <Route path='/schema' component={SchemaApp}/>
     </Switch>
   </main>
@@ -76,4 +81,8 @@ ReactDOM.render(
   </HashRouter>,
 
   document.getElementById('react')
+);
+
+dataServer.openConnection().then(
+  (result) => { ChatActions.loadRawMessages(); }
 );

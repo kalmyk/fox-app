@@ -1,21 +1,28 @@
 module.exports = {
-  entry: './app/app.js',
+  mode: 'development',
+  entry: './app/App.js',
   output: {
     filename: 'bundle.js',
-    path: './www',
+    path: __dirname + '/www'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx']
   },
   devtool: 'source-map',
 //  devtool: 'inline-source-map',
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel'
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-transform-runtime']
+          }
+        }
       },
       { test: /\.css$/, loader: 'style!css' },
       { test: /\.jpg$/, loader: "file-loader" },
