@@ -1,6 +1,8 @@
 module.exports = {
   mode: 'development',
-  entry: './app/App.js',
+  entry: {
+    app:['./app/App.js'],
+  },
   output: {
     filename: 'bundle.js',
     path: __dirname + '/www'
@@ -19,15 +21,14 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'],
-            plugins: ['@babel/plugin-transform-runtime']
+            presets: ['es2015']
           }
         }
-      },
-      { test: /\.css$/, loader: 'style!css' },
-      { test: /\.jpg$/, loader: "file-loader" },
-      { test: /\.png$/, loader: "url-loader?mimetype=image/png" },
-      { test: /autobahn\/package.json$/, loader: 'json-loader'}
+      } /* ,
+      { test: /\.css$/, use: { loader: 'style!css' }},
+      { test: /\.jpg$/, use: { loader: "file-loader" }},
+      { test: /\.png$/, use: { loader: "url-loader?mimetype=image/png" }},
+      { test: /autobahn\/package.json$/, use: {loader: 'json-loader'}} */
     ]
   }
 };

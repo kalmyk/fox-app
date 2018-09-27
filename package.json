@@ -17,14 +17,14 @@
     "reflux": "^6.4.1"
   },
   "devDependencies": {
-    "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
-    "json-loader": "*",
-    "webpack": "^1.12.1",
     "babel-preset-env": "*",
-    "babel-preset-react": "*"
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "*",
+    "babel-preset-stage-2": "^6.24.1",
+    "json-loader": "*",
+    "webpack": "^1.12.1"
   },
   "scripts": {
     "start": "webpack -w",
