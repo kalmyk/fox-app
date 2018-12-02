@@ -1,4 +1,5 @@
-var WampRouter = require('fox-wamp');
+var Router = require('fox-wamp');
+var QMSG = require('fox-wamp/lib/messages');
 var program = require('commander');
 
 program
@@ -7,9 +8,8 @@ program
 
 console.log('Listening port:', program.port);
 
-var app = new WampRouter(
-    {port: program.port}
-);
+var app = new Router();
+app.setLogTrace(true);
 
 let messages = [
   {
@@ -84,3 +84,12 @@ app.getRealm('realm1', function (realm) {
         api.publish('chat.messages', [], {message:kwargs.message});
     });
 });
+
+app.on(QMSG.ON_SUBSCRIBED, (realm, actorTrace) => {
+  if ('tb.ticket' === actorTrace.getUri()) {
+    actorTrace.sendEvent({data: {id:1, title: 'ticket title 1'}});
+    actorTrace.sendEvent({data: {id:2, title: 'ticket title 2'}});
+  }
+});
+
+app.listenWAMP({port: program.port});

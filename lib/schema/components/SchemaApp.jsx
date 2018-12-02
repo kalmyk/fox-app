@@ -3,11 +3,11 @@ import React from 'react'
 export default class SchemaApp extends React.Component {
 
   componentDidMount() {
-    console.log('did-mount');
+    console.log('schema-did-mount');
   }
 
   componentWillUnmount() {
-    console.log('will-unmount');
+    console.log('schema-will-unmount');
   }
 
   render() {

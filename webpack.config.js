@@ -1,7 +1,12 @@
+var debug = process.env.NODE_ENV !== 'production';
+var path = require('path');
+//var webpack = require('webpack');
+
 module.exports = {
   mode: 'development',
+  context: path.join(__dirname, '/lib'),
   entry: {
-    app:['./app/App.js'],
+    app:['./App.js'],
   },
   output: {
     filename: 'bundle.js',
@@ -10,9 +15,10 @@ module.exports = {
   resolve: {
     extensions: ['*', '.js', '.jsx']
   },
-  devtool: 'source-map',
-//  devtool: 'inline-source-map',
-
+  devtool: debug ? 'inline-source-map' : null,
+  watchOptions: {
+    poll: true
+  },
   module: {
     rules: [
       {

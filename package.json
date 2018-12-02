@@ -6,9 +6,9 @@
   "author": "Anatoly Tsapkov",
   "main": "app/App.js",
   "dependencies": {
-    "autobahn": "*",
+    "autobahn": "^18.10.2",
     "classnames": "*",
-    "fox-wamp": "*",
+    "fox-wamp": "^0.4.21",
     "lodash": "^4.17.11",
     "prop-types": "^15.0.2",
     "react": "^15.0.2",

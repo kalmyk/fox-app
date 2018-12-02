@@ -1,5 +1,4 @@
 *.log
-package-lock.json
 node_modules
 www/bundle.js
 www/bundle.js.map
