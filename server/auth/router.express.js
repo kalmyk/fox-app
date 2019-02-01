@@ -7,7 +7,7 @@ var passport = require('passport');
 
 var GoogleTokenStrategy = require('passport-google-token').Strategy;
 
-var config = require('./key.config');
+var config = require('../key.config');
 
 passport.use(
     new GoogleTokenStrategy({

@@ -1,4 +1,5 @@
 *.log
 node_modules
-www/bundle.js
-www/bundle.js.map
+resources/bundle.js
+resources/bundle.js.map
+server/key.config.js

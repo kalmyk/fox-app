@@ -4,11 +4,11 @@ var path = require('path');
 
 module.exports = {
   mode: 'development',
-  context: path.join(__dirname, '/lib'),
-  entry: './main',
+  context: path.join(__dirname, '/main'),
+  entry: './appmain',
   output: {
     filename: 'bundle.js',
-    path: __dirname + '/www'
+    path: path.join( path.dirname(__dirname), '/resources' )
   },
   resolve: {
     extensions: ['*', '.js', '.jsx']

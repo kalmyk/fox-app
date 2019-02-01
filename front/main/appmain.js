@@ -5,11 +5,11 @@ import ReactDOM from 'react-dom';
 import { Switch, Route, NavLink, BrowserRouter, HashRouter } from 'react-router-dom';
 
 import * as dataServer from './dataServer';
-import ChatApp from './chat/components/ChatApp';
-import * as ChatActions from './chat/actions';
-import TicketApp from './ticket/components/TicketApp';
-import SchemaApp from './schema/components/SchemaApp';
-import DemoShop from './demoshop/components/App';
+import ChatApp from '../routes/chat/components/ChatApp';
+import * as ChatActions from '../routes/chat/actions';
+import TicketApp from '../routes/ticket/components/TicketApp';
+import SchemaApp from '../routes/schema/components/SchemaApp';
+import DemoShop from '../routes/demoshop/components/App';
 import Auth from './auth';
 import { Provider, Subscribe, Container } from 'unstated';
 

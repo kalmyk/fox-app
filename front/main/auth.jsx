@@ -1,7 +1,7 @@
 import React from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { Subscribe, Container } from 'unstated';
-import config from './auth.config.json';
+import config from '../auth.config.json';
 
 type UserRecord = {
     email: string,

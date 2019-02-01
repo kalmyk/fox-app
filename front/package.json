@@ -1,0 +1,44 @@
+{
+    "name": "fox-app",
+    "version": "0.0.1",
+    "description": "Reflux Demo Apps",
+    "repository": "https://github.com/kalmyk/fox-app.git",
+    "author": "Anatoly Tsapkov",
+    "main": "lib/App.js",
+    "license": "MIT",
+    "dependencies": {
+        "autobahn": "^18.10.2",
+        "babel-preset-stage-1": "^6.24.1",
+        "classnames": "^2.2.6",
+        "lodash": "^4.17.11",
+        "prop-types": "^15.0.2",
+        "react": "^15.0.2",
+        "react-dom": "^15.0.2",
+        "react-google-login": "^4.0.1",
+        "react-router-dom": "^4.2.2",
+        "reflux": "^6.4.1",
+        "unstated": "^2.1.1"
+    },
+    "devDependencies": {
+        "babel-cli": "*",
+        "babel-core": "^6.26.3",
+        "babel-loader": "^7.1.5",
+        "babel-preset-env": "^1.7.0",
+        "babel-preset-es2015": "*",
+        "babel-preset-react": "*",
+        "babel-preset-stage-2": "^6.24.1",
+        "json-loader": "*",
+        "webpack": "*"
+    },
+    "scripts": {
+        "start": "webpack -w --display-error-details",
+        "build": "webpack"
+    },
+    "babel": {
+        "presets": [
+            "env",
+            "react",
+            "stage-2"
+        ]
+    }
+}

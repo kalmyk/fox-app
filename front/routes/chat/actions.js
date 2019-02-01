@@ -1,6 +1,6 @@
 import Reflux from 'reflux';
 import * as ChatMessageUtils from './ChatMessageUtils';
-import * as dataServer from '../dataServer';
+import * as dataServer from '../../main/dataServer';
 
 export let loadRawMessages = Reflux.createAction({
   asyncResult: true
