@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import * as dataServer from '../../dataServer';
 
 export default class TicketApp extends React.Component {

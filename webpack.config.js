@@ -5,9 +5,7 @@ var path = require('path');
 module.exports = {
   mode: 'development',
   context: path.join(__dirname, '/lib'),
-  entry: {
-    app:['./App.js'],
-  },
+  entry: './main',
   output: {
     filename: 'bundle.js',
     path: __dirname + '/www'
@@ -22,12 +20,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['es2015']
+            presets: ['es2015', 'react', 'stage-1']
           }
         }
       } /* ,
