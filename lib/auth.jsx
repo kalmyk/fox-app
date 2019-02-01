@@ -1,23 +1,28 @@
 import React from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import { Subscribe, Container } from 'unstated';
 import config from './auth.config.json';
 
-export default class Auth extends React.Component {
+type UserRecord = {
+    email: string,
+    id: number
+}
 
-    constructor(props) {
-        super(props);
-        this.state = { isAuthenticated: false, user: null, token: ''};
-        this.googleResponse = this.googleResponse.bind(this);
-        this.logout = this.logout.bind(this);
-    }
+type LoginState = {
+    isAuthenticated: boolean,
+    user:UserRecord,
+    token: string
+}
+
+class LoginContainer extends Container<LoginState> {
+
+    state = { isAuthenticated: false, user:null, token: '' };
 
     logout () {
-        this.setState({isAuthenticated: false, token: '', user: null});
+        this.setState({isAuthenticated: false, token: '', user: null})
     }
-    
-    googleResponse(response) {
 
-        this.setState({user:{email:'TO-BE-DEFINED'}});
+    googleResponse(response) {
 
         const tokenBlob = new Blob(
             [JSON.stringify({access_token: response.accessToken},null, 2)],
@@ -39,36 +44,38 @@ export default class Auth extends React.Component {
         })
     }
 
-    render() {
-        let content = !!this.state.isAuthenticated ?
-            (
-                <div>
-                    <div>
-                        {this.state.user.email}
+}
+
+export default function () {
+
+    return (
+        <Subscribe to={[LoginContainer]}>
+            {login => (
+                !!login.state.isAuthenticated ?
+                (
+                    <div className="Auth">
+                        <div>
+                            {login.state.user.email}
+                        </div>
+                        <div>
+                            <GoogleLogout
+                                buttonText="Logout"
+                                onLogoutSuccess={ () => login.logout() }
+                            />
+                        </div>
                     </div>
-                    <div>
-                        <GoogleLogout
-                            buttonText="Logout"
-                            onLogoutSuccess={this.logout}
+                ) :
+                (
+                    <div className="Auth">
+                        <GoogleLogin
+                            clientId={config.GOOGLE_CLIENT_ID}
+                            buttonText="Login"
+                            onSuccess={(response) => login.googleResponse(response)}
+                            onFailure={(response) => login.googleResponse(response)}
                         />
                     </div>
-                </div>
-            ) :
-            (
-                <div>
-                    <GoogleLogin
-                        clientId={config.GOOGLE_CLIENT_ID}
-                        buttonText="Login"
-                        onSuccess={this.googleResponse}
-                        onFailure={this.googleResponse}
-                    />
-                </div>
-            );
-
-        return (
-            <div className="Auth">
-                {content}
-            </div>
-        );
-    }
+                )
+            )}
+        </Subscribe>
+    );
 }

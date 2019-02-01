@@ -20,7 +20,8 @@
     "react-dom": "^15.0.2",
     "react-google-login": "^4.0.1",
     "react-router-dom": "^4.2.2",
-    "reflux": "^6.4.1"
+    "reflux": "^6.4.1",
+    "unstated": "^2.1.1"
   },
   "devDependencies": {
     "babel-cli": "*",
