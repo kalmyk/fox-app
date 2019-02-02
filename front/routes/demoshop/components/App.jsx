@@ -3,7 +3,7 @@
 var React = require('react');
 var CartContainer = require('./CartContainer.jsx');
 var ProductsContainer = require('./ProductsContainer.jsx');
-var WebAPIUtils = require('../utils/WebAPIUtils');
+var WebAPIUtils = require('../WebAPIUtils');
 
 export default class App extends React.Component {
 

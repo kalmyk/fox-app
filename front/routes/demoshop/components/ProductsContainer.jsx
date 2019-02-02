@@ -2,8 +2,8 @@
 
 var React = require('react');
 var Reflux = require('reflux');
-var ProductItem = require('../common/components/ProductItem.jsx');
-var ProductsList = require('../common/components/ProductsList.jsx');
+var ProductItem = require('./ProductItem.jsx');
+var ProductsList = require('./ProductsList.jsx');
 var ProductStore = require('../stores/ProductStore');
 var ActionCreators = require('../actions/ActionCreators');
 

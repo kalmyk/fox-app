@@ -11,7 +11,7 @@ module.exports = {
     path: path.join( path.dirname(__dirname), '/resources' )
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.js', '.ts', '.jsx']
   },
   devtool: debug ? 'inline-source-map' : null,
   watchOptions: {
@@ -20,7 +20,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|ts|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',

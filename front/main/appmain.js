@@ -10,7 +10,7 @@ import * as ChatActions from '../routes/chat/actions';
 import TicketApp from '../routes/ticket/components/TicketApp';
 import SchemaApp from '../routes/schema/components/SchemaApp';
 import DemoShop from '../routes/demoshop/components/App';
-import Auth from './auth';
+import Auth from './components/auth';
 import { Provider, Subscribe, Container } from 'unstated';
 
 const dark = 'hsl(200, 20%, 20%)'

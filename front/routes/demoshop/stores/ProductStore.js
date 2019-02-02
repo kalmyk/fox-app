@@ -24,9 +24,6 @@ var ProductStore = Reflux.createStore({
         this.trigger(this._products);
     },
 
-    getAllProducts: function () {
-        return this._products;
-    }
 });
 
 module.exports = ProductStore;

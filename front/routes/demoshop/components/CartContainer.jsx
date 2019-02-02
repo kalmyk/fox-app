@@ -2,7 +2,7 @@
 
 var React = require('react');
 var Reflux = require('reflux');
-var Cart = require('../common/components/Cart.jsx');
+var Cart = require('./Cart.jsx');
 var CartStore = require('../stores/CartStore');
 var ActionCreators = require('../actions/ActionCreators');
 

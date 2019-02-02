@@ -1,7 +1,7 @@
 'use strict';
 
-var shop = require('../common/api/shop');
-var ActionCreators = require('../actions/ActionCreators');
+var shop = require('./shopData');
+var ActionCreators = require('./actions/ActionCreators');
 
 var WebAPIUtils = {
     getAllProducts: function () {

@@ -51,6 +51,7 @@ export default class ThreadSection extends Reflux.Component {
     return (
       <div className="thread-section">
         <UnreadSection />
+        <button>NEW</button>
         <ul className="thread-list">
           {threadListItems}
         </ul>
