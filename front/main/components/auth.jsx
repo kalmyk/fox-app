@@ -2,9 +2,9 @@ import React from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { Subscribe } from 'unstated';
 import config from '../../auth.config.json';
-import loginContainer from '../loginContainer'
+import loginContainer from '../containers/login'
 
-export default function () {
+export default function authComponent () {
 
     return (
         <Subscribe to={[loginContainer]}>

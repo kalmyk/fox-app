@@ -4,6 +4,14 @@ import collection from 'lodash/collection';
 import * as Actions from './actions';
 import * as ChatMessageUtils from './ChatMessageUtils';
 
+function convertRawMessage(rawMessage, threadId) {
+  return {
+    ...rawMessage,
+    date: new Date(rawMessage.timestamp),
+    isRead: rawMessage.threadID === threadId
+  };
+};
+
 export default class MessageStore extends Reflux.Store
 {
   constructor()
@@ -39,7 +47,7 @@ export default class MessageStore extends Reflux.Store
   }
 
   onMessageArrived(rawMessage) {
-    let message = ChatMessageUtils.convertRawMessage(rawMessage);
+    let message = convertRawMessage(rawMessage);
     message.isRead = message.threadID == this.state.currentThreadID;
     this.state.threads[message.threadID].push(message);
     this.setState({
@@ -67,8 +75,7 @@ export default class MessageStore extends Reflux.Store
   onLoadRawMessagesCompleted(rawMessages)
   {
     let messages = rawMessages.map(m => {
-      let message = ChatMessageUtils.convertRawMessage(m);
-      return message;
+      return convertRawMessage(m);
     });
 
     let threads = collection.groupBy(messages, 'threadID');

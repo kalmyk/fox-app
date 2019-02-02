@@ -1,10 +1,3 @@
-export function convertRawMessage(rawMessage, threadId) {
-  return {
-    ...rawMessage,
-    date: new Date(rawMessage.timestamp),
-    isRead: rawMessage.threadID === threadId
-  };
-};
 
 export function getCreatedMessageData(text, threadId, threadName) {
   var timestamp = Date.now();
