@@ -18,7 +18,6 @@ export default class MessageStore extends Reflux.Store
 	{
 		super();
 
-		this.state.messageSending = false;
     this.state.threads = {};
     this.state.currentThreadID = null;
     this.state.currentThreadName = 'CUR-THREAD-NAME';
@@ -26,16 +25,6 @@ export default class MessageStore extends Reflux.Store
 
     this.listenToMany(Actions);
 	}
-
-  onLoadingStarted()
-  {
-    this.setState({messageSending: true});
-  }
-
-  onLoadingFinished()
-  {
-    this.setState({messageSending: false});
-  }
 
   calcUnreadCount(threads) {
     let unreadCount = 0;

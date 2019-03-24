@@ -1,29 +1,22 @@
-import React from 'react';
-import Reflux from 'reflux';
-import MessageStore from '../MessageStore';
+import React from 'react'
+import { Subscribe } from 'unstated'
+import messageSendingContainer from '../containers/messageSending'
 
-export default class MessageSending extends Reflux.Component
-{
+export default function MessageSending () {
 
-  constructor(props)
-    {
-        super(props);
-        this.store = MessageStore;
-        this.storeKeys = ['messageSending'];
-    }
+  return (
+    <Subscribe to={[messageSendingContainer]}>
+      {msc => (
 
-  render() {
+        <div className="message-sending">
+          {msc.state.messageSending ?
+            <span>Message Sinding...</span> :
+            null
+          }
+        </div>
 
-    let messageSending =
-      this.state.messageSending ?
-      <span>Message Sinding...</span> :
-      null;
+      )}
+    </Subscribe>
+  )
 
-    return (
-      <div className="message-sending">
-        {messageSending}
-      </div>
-    );
-  }
-
-};
+}

@@ -1,14 +1,11 @@
 import Reflux from 'reflux';
 import * as ChatMessageUtils from './ChatMessageUtils';
 import * as dataServer from '../../main/dataServer';
+import messageSendingContainer from './containers/messageSending'
 
 export let loadRawMessages = Reflux.createAction({
   asyncResult: true
 });
-
-export let loadingStarted = Reflux.createAction();
-
-export let loadingFinished = Reflux.createAction();
 
 export let clickThread = Reflux.createAction();
 
@@ -24,13 +21,9 @@ function onEvent(publishArgs, kwargs, opts) {
 }
 
 loadRawMessages.listen(function () {
-  console.log('loadRawMessages');
-
   dataServer.subscribe('chat.messages', onEvent).then(
-      function(subscription) {
-         console.log("subscription successfull", subscription.topic);
-      },
-      function(error) {
+      (subscription) => {},
+      (error) => {
          console.log("subscription failed", error);
       }
    );
@@ -69,8 +62,8 @@ function postMessage(message, callback) {
 
 createMessage.listen(function (text, threadId, threadName) {
   let message = ChatMessageUtils.getCreatedMessageData(text, threadId, threadName);
-  loadingStarted();
+  messageSendingContainer.loadingStarted();
   postMessage(message, rawMessage => {
-    loadingFinished();
+    messageSendingContainer.loadingFinished();
   });
 });

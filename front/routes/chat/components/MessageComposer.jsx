@@ -4,6 +4,24 @@ import * as Actions from '../actions';
 
 let ENTER_KEY_CODE = 13;
 
+/* 
+    http://omegatracker.herokuapp.com/project/mikeproj
+    
+    Available commands:
+
+        /create <description>
+        /critical <id>
+        /tag <id> <tag>
+        /untag <id>
+        /assign <id> [<user>]
+        /unassign <id>
+        /edit <id> <description>
+        /close <id>
+        /reopen <id>
+        /export
+
+*/
+
 class MessageComposer extends React.Component {
 
   constructor(props) {

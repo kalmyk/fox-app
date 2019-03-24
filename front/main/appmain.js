@@ -1,6 +1,7 @@
 // This file bootstraps the entire application.
 
 import React from 'react';
+import Modal from 'react-modal';
 import ReactDOM from 'react-dom';
 import { Switch, Route, NavLink, BrowserRouter, HashRouter } from 'react-router-dom';
 
@@ -83,14 +84,16 @@ const App = () => (
 ReactDOM.render(
 
   <HashRouter>
-        <Provider>
-            <App />
-        </Provider>
+    <Provider>
+      <App />
+    </Provider>
   </HashRouter>,
 
   document.getElementById('react')
-);
+)
+
+Modal.setAppElement(document.getElementById('react'))
 
 dataServer.openConnection().then(
-  (result) => { ChatActions.loadRawMessages(); }
-);
+  (result) => { ChatActions.loadRawMessages() }
+)
