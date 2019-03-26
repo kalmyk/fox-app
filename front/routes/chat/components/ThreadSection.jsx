@@ -1,13 +1,14 @@
-import React from 'react';
-import Reflux from 'reflux';
-import Modal from 'react-modal';
-import array from 'lodash/array';
-import ThreadListItem from './ThreadListItem';
-import MessageSending from './MessageSending';
-import MessageStore from '../MessageStore';
+import React from 'react'
+import Reflux from 'reflux'
+import Modal from 'react-modal'
+import array from 'lodash/array'
+import ThreadListItem from './ThreadListItem'
+import MessageSending from './MessageSending'
+import MessageStore from '../MessageStore'
+import { Button } from 'reactstrap'
 
 const customStyles = {
-  content : {
+  content: {
     top                   : '50%',
     left                  : '50%',
     right                 : 'auto',
@@ -15,97 +16,98 @@ const customStyles = {
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)'
   }
-};
+}
 
 class UnreadSection extends Reflux.Component {
-
-  constructor(props) {
-    super(props);
-    this.store = MessageStore;
-    this.storeKeys = ['unreadCount'];
+  constructor (props) {
+    super(props)
+    this.store = MessageStore
+    this.storeKeys = ['unreadCount']
   }
 
-  render() {
-
+  render () {
     let unread =
-      this.state.unreadCount === 0 ?
-      null :
-      <span>Unread threads: {this.state.unreadCount}</span>;
+      this.state.unreadCount === 0
+        ? null
+        : <span>Unread threads: {this.state.unreadCount}</span>
 
     return (
-      <div className="thread-count">
+      <div className='thread-count'>
         {unread}
       </div>
-    );
+    )
   }
 }
 
-function NewTicketDialog(props) {
+function NewTicketDialog (props) {
   return (
     <div>
-    <Modal
-      isOpen={props.that.state.modalIsOpen}
-      onAfterOpen={props.that.afterOpenModal}
-      onRequestClose={props.that.closeModal}
-      style={customStyles}
-      contentLabel="Example Modal"
-    >
-      <h2 ref={subtitle => props.that.subtitle = subtitle}>Hello</h2>
-      <div>new ticket</div>
-      <form>
-        <input />
-        <button>tab navigation</button>
-        <button>the modal</button>
-      </form>
-      <button onClick={() => props.that.closeModal()}>close</button>
-    </Modal>
-  </div>
-)}
+      <Modal
+        isOpen={props.that.state.modalIsOpen}
+        onAfterOpen={props.that.afterOpenModal}
+        onRequestClose={props.that.closeModal}
+        style={customStyles}
+        contentLabel='Example Modal'
+      >
+        <h2 ref={ subtitle => props.that.subtitle = subtitle }>Hello</h2>
+        <div>new ticket</div>
+        <form>
+          <input />
+          <button>tab navigation</button>
+          <button>the modal</button>
+        </form>
+        <button onClick={() => props.that.closeModal()}>close</button>
+      </Modal>
+    </div>
+  )
+}
 
 export default class ThreadSection extends Reflux.Component {
-
-  constructor(props) {
-    super(props);
-    this.store = MessageStore;
-    this.storeKeys = ['threads', 'currentThreadID'];
+  constructor (props) {
+    super(props)
+    this.store = MessageStore
+    this.storeKeys = ['threads', 'currentThreadID']
   }
 
-  openModal() {
-    this.setState({modalIsOpen: true});
+  openModal () {
+    this.setState({ modalIsOpen: true })
   }
 
-  afterOpenModal() {
+  afterOpenModal () {
     // references are now sync'd and can be accessed.
-    this.subtitle.style.color = '#f00';
+    this.subtitle.style.color = '#f00'
   }
 
-  closeModal() {
-    this.setState({modalIsOpen: false});
+  closeModal () {
+    this.setState({ modalIsOpen: false })
   }
 
-  render() {
+  render () {
     let threadListItems = Object.keys(this.state.threads).map(threadID => {
-      let messages = this.state.threads[threadID];
+      let messages = this.state.threads[threadID]
       return (
         <ThreadListItem
           key={threadID}
           lastMessage={array.last(messages)}
           currentThreadID={this.state.currentThreadID}
         />
-      );
-    });
+      )
+    })
 
     return (
-      <div className="thread-section">
-        <UnreadSection />
-        <button onClick={() => this.openModal()}>Open Modal</button>
+
+      <div className='thread-section'>
+        <div>
+          <Button color='primary' onClick={() => this.openModal()}>New Thread</Button>{' '}
+        </div>
         <NewTicketDialog that={this} />
-        <ul className="thread-list">
+        <ul className='thread-list'>
           {threadListItems}
         </ul>
+        <UnreadSection />
         <MessageSending />
       </div>
-    );
-  }
 
-};
+    )
+  }
+}

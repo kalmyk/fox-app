@@ -1,18 +1,20 @@
 // This file bootstraps the entire application.
 
-import React from 'react';
-import Modal from 'react-modal';
-import ReactDOM from 'react-dom';
-import { Switch, Route, NavLink, BrowserRouter, HashRouter } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.css'
 
-import * as dataServer from './dataServer';
-import ChatApp from '../routes/chat/components/ChatApp';
-import * as ChatActions from '../routes/chat/actions';
-import TicketApp from '../routes/ticket/components/TicketApp';
-import SchemaApp from '../routes/schema/components/SchemaApp';
-import DemoShop from '../routes/demoshop/components/App';
-import Auth from './components/auth';
-import { Provider, Subscribe, Container } from 'unstated';
+import React from 'react'
+import Modal from 'react-modal'
+import ReactDOM from 'react-dom'
+import { Switch, Route, NavLink, BrowserRouter, HashRouter } from 'react-router-dom'
+
+import * as dataServer from './dataServer'
+import ChatApp from '../routes/chat/components/ChatApp'
+import * as ChatActions from '../routes/chat/actions'
+import TicketApp from '../routes/ticket/components/TicketApp'
+import SchemaApp from '../routes/schema/components/SchemaApp'
+import DemoShop from '../routes/demoshop/components/App'
+import Auth from './components/auth'
+import { Provider, Subscribe, Container } from 'unstated'
 
 const dark = 'hsl(200, 20%, 20%)'
 const light = '#fff'
@@ -54,7 +56,7 @@ const Header = () => (
       </div>
     </nav>
   </header>
-);
+)
 
 const Home = () => (
   <div>
@@ -65,11 +67,11 @@ const Home = () => (
 const Main = () => (
   <main>
     <Switch>
-      <Route exact path='/' component={Home}/>
-      <Route path='/chat' component={ChatApp}/>
-      <Route path='/ticket' component={TicketApp}/>
-      <Route path='/schema' component={SchemaApp}/>
-      <Route path='/demoshop' component={DemoShop}/>
+      <Route exact path='/' component={Home} />
+      <Route path='/chat' component={ChatApp} />
+      <Route path='/ticket' component={TicketApp} />
+      <Route path='/schema' component={SchemaApp} />
+      <Route path='/demoshop' component={DemoShop} />
     </Switch>
   </main>
 )
@@ -79,7 +81,7 @@ const App = () => (
     <Header />
     <Main />
   </div>
-);
+)
 
 ReactDOM.render(
 
@@ -94,6 +96,6 @@ ReactDOM.render(
 
 Modal.setAppElement(document.getElementById('react'))
 
-dataServer.openConnection().then(
-  (result) => { ChatActions.loadRawMessages() }
-)
+dataServer.openConnection().then((result) => {
+  ChatActions.loadRawMessages()
+})

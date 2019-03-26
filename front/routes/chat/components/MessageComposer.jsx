@@ -1,12 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import * as Actions from '../actions';
+import React from 'react'
+import PropTypes from 'prop-types'
+import * as Actions from '../actions'
+import { Button } from 'reactstrap'
 
-let ENTER_KEY_CODE = 13;
+let ENTER_KEY_CODE = 13
 
-/* 
+/*
     http://omegatracker.herokuapp.com/project/mikeproj
-    
+
     Available commands:
 
         /create <description>
@@ -19,48 +20,52 @@ let ENTER_KEY_CODE = 13;
         /close <id>
         /reopen <id>
         /export
-
 */
 
 class MessageComposer extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {text: ''};
+  constructor (props) {
+    super(props)
+    this.state = { text: '' }
   }
 
-  render() {
+  render () {
     return (
-      <textarea
-        className="message-composer"
-        name="message"
-        value={this.state.text}
-        onChange={this._onChange.bind(this)}
-        onKeyDown={this._onKeyDown.bind(this)}
-      />
-    );
+      <div>
+        <textarea
+          className='message-composer'
+          name='message'
+          value={this.state.text}
+          onChange={this._onChange.bind(this)}
+          onKeyDown={this._onKeyDown.bind(this)}
+        />
+        <Button color='primary' onClick={() => this.composeMessage()}>send</Button>{' '}
+      </div>
+    )
   }
 
-  _onChange(event, value) {
-    this.setState({text: event.target.value});
+  composeMessage () {
+    let text = this.state.text.trim()
+    if (text) {
+      Actions.createMessage(text, this.props.threadId, this.props.threadName)
+    }
+    this.setState({ text: '' })
   }
 
-  _onKeyDown(event) {
+  _onChange (event, value) {
+    this.setState({ text: event.target.value })
+  }
+
+  _onKeyDown (event) {
     if (event.keyCode === ENTER_KEY_CODE) {
-      event.preventDefault();
-      let text = this.state.text.trim();
-      if (text) {
-        Actions.createMessage(text, this.props.threadId, this.props.threadName);
-      }
-      this.setState({text: ''});
+      event.preventDefault()
+      this.composeMessage()
     }
   }
-
-};
+}
 
 MessageComposer.propTypes = {
   threadId: PropTypes.string.isRequired,
   threadName: PropTypes.string.isRequired
-};
+}
 
-export default MessageComposer;
+export default MessageComposer
