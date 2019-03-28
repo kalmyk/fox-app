@@ -1,6 +1,6 @@
 'use strict';
 
-import { Container } from 'unstated';
+import { Container } from 'unstated'
 
 type UserRecord = {
     email: string,
@@ -42,7 +42,6 @@ class LoginContainer extends Container<LoginState> {
             });
         })
     }
-
 }
 
 export default new LoginContainer()

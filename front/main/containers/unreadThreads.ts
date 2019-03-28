@@ -11,7 +11,7 @@ class UnreadThreadsContainer extends Container<UnreadThreads> {
     state = { unreadCount: 0 };
 
     logout () {
-        this.setState({isAuthenticated: false, token: '', user: null})
+        this.setState({ isAuthenticated: false, token: '', user: null })
     }
 
 }

@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-import { Container } from 'unstated';
+import { Container } from 'unstated'
 
 type MessageSending = {
     messageSending: boolean
@@ -8,7 +8,9 @@ type MessageSending = {
 
 class MessageSendingContainer extends Container<MessageSending> {
 
-    state = { messageSending: false }
+    state = {
+        messageSending: false
+    }
 
     loadingStarted() {
         this.setState({messageSending: true})

@@ -1,20 +1,18 @@
-import React from 'react';
-import MessageSection from './MessageSection';
-import ThreadSection from './ThreadSection';
+import React from 'react'
+import MessageSection from './MessageSection'
+import ThreadSection from './ThreadSection'
 
 export default class ChatApp extends React.Component {
-
-  componentDidMount() {
-    this.forceUpdate();
+  componentDidMount () {
+    this.forceUpdate()
   }
 
-  render() {
+  render () {
     return (
-      <div className="chatapp">
+      <div className='chatapp'>
         <ThreadSection />
         <MessageSection />
       </div>
-    );
+    )
   }
-
-};
+}
