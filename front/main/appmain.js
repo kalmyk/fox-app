@@ -8,12 +8,13 @@ import ReactDOM from 'react-dom'
 import { Switch, Route, NavLink, BrowserRouter, HashRouter } from 'react-router-dom'
 
 import * as dataServer from './dataServer'
+import messageThread from '../routes/chat/containers/messageThread'
 import ChatApp from '../routes/chat/components/ChatApp'
 import * as ChatActions from '../routes/chat/actions'
 import TicketApp from '../routes/ticket/components/TicketApp'
 import SchemaApp from '../routes/schema/components/SchemaApp'
 import Auth from './components/auth'
-import { Provider, Subscribe, Container } from 'unstated'
+import { Provider } from 'unstated'
 
 const dark = 'hsl(200, 20%, 20%)'
 const light = '#fff'
@@ -95,4 +96,5 @@ Modal.setAppElement(document.getElementById('react'))
 
 dataServer.openConnection().then((result) => {
   ChatActions.loadRawMessages()
+  messageThread.connectServer()
 })

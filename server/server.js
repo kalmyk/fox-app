@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser')
 const passport = require('passport')
 
 const { WampData } = require('./data/wamp_data')
-const authRouter = require('./auth/router.express')
+const authRouter = require('./auth/router.express').router
 
 const PORT = process.env.PORT || 9000
 

@@ -3,22 +3,23 @@
 import { Container } from 'unstated'
 
 type MessageSending = {
-    messageSending: boolean
+    messageSending: number
 }
 
 class MessageSendingContainer extends Container<MessageSending> {
 
-    state = {
-        messageSending: false
-    }
+  state = {
+    messageSending: 0
+  }
 
-    loadingStarted() {
-        this.setState({messageSending: true})
-    }
-  
-    loadingFinished() {
-        this.setState({messageSending: false})
-    }  
+  loadingStarted() {
+    this.setState({messageSending: ++this.state.messageSending})
+  }
+
+  loadingFinished() {
+    this.setState({messageSending: --this.state.messageSending})
+  }  
+
 }
 
 export default new MessageSendingContainer()

@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import * as Actions from '../actions'
 import { Button } from 'reactstrap'
+
+import * as Actions from '../actions'
+import messageThreadContainer from '../containers/messageThread'
 
 let ENTER_KEY_CODE = 13
 
@@ -47,6 +49,7 @@ class MessageComposer extends React.Component {
     let text = this.state.text.trim()
     if (text) {
       Actions.createMessage(text, this.props.threadId, this.props.threadName)
+      messageThreadContainer.composeMessage(text)
     }
     this.setState({ text: '' })
   }

@@ -1,11 +1,15 @@
 import React from 'react'
 import Reflux from 'reflux'
 import Modal from 'react-modal'
-import array from 'lodash/array'
-import ThreadListItem from './ThreadListItem'
+import { Button } from 'reactstrap'
+import { Subscribe } from 'unstated'
+import classNames from 'classnames'
+
 import MessageSending from './MessageSending'
 import MessageStore from '../MessageStore'
-import { Button } from 'reactstrap'
+import * as Actions from '../actions'
+
+import messageThreadContainer from '../containers/messageThread'
 
 const customStyles = {
   content: {
@@ -16,6 +20,25 @@ const customStyles = {
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)'
   }
+}
+
+function ThreadListItem (props) {
+  return (
+    <li
+      className={classNames({
+        'thread-list-item': true,
+        'active': props.active
+      })}
+      onClick={() => Actions.clickThread(props.threadID)}>
+      <h5 className='thread-name'>{props.name}</h5>
+      <div className='thread-time'>
+        {props.date.toLocaleTimeString()}
+      </div>
+      <div className='thread-last-message'>
+        {props.text}
+      </div>
+    </li>
+  )
 }
 
 class UnreadSection extends Reflux.Component {
@@ -69,6 +92,10 @@ export default class ThreadSection extends Reflux.Component {
     this.storeKeys = ['threads', 'currentThreadID']
   }
 
+  createThread () {
+    messageThreadContainer.modeNewThread()
+  }
+
   openModal () {
     this.setState({ modalIsOpen: true })
   }
@@ -83,31 +110,36 @@ export default class ThreadSection extends Reflux.Component {
   }
 
   render () {
-    let threadListItems = Object.keys(this.state.threads).map(threadID => {
-      let messages = this.state.threads[threadID]
-      return (
-        <ThreadListItem
-          key={threadID}
-          lastMessage={array.last(messages)}
-          currentThreadID={this.state.currentThreadID}
-        />
-      )
-    })
-
     return (
 
-      <div className='thread-section'>
-        <div>
-          <Button color='primary' onClick={() => this.openModal()}>New Thread</Button>{' '}
-        </div>
-        <NewTicketDialog that={this} />
-        <ul className='thread-list'>
-          {threadListItems}
-        </ul>
-        <UnreadSection />
-        <MessageSending />
-      </div>
+      <Subscribe to={[messageThreadContainer]}>
+        {mtc => (
 
+          <div className='thread-section'>
+            <div>
+              <Button color='primary' onClick={() => this.createThread()}>New Thread</Button>{' '}
+            </div>
+            <NewTicketDialog that={this} />
+            <ul className='thread-list'>
+              { mtc.state.thread.map(thread => {
+                return (
+                  <ThreadListItem
+                    key={thread.id}
+                    threadID={thread.id}
+                    active={false}
+                    name={thread.name}
+                    text={thread.text}
+                    date={new Date()}
+                  />
+                )
+              })}
+            </ul>
+            <UnreadSection />
+            <MessageSending />
+          </div>
+
+        )}
+      </Subscribe>
     )
   }
 }
