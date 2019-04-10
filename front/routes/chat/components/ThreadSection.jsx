@@ -1,35 +1,21 @@
 import React from 'react'
-import Reflux from 'reflux'
 import Modal from 'react-modal'
 import { Button } from 'reactstrap'
 import { Subscribe } from 'unstated'
 import classNames from 'classnames'
 
 import MessageSending from './MessageSending'
-import MessageStore from '../MessageStore'
-import * as Actions from '../actions'
 
 import messageThreadContainer from '../containers/messageThread'
 
-const customStyles = {
-  content: {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
-  }
-}
-
-function ThreadListItem (props) {
+function ThreadItem (props) {
   return (
     <li
       className={classNames({
         'thread-list-item': true,
         'active': props.active
       })}
-      onClick={() => Actions.clickThread(props.threadID)}>
+      onClick={() => messageThreadContainer.onClickThread(props.threadId)}>
       <h5 className='thread-name'>{props.name}</h5>
       <div className='thread-time'>
         {props.date.toLocaleTimeString()}
@@ -41,27 +27,45 @@ function ThreadListItem (props) {
   )
 }
 
-class UnreadSection extends Reflux.Component {
-  constructor (props) {
-    super(props)
-    this.store = MessageStore
-    this.storeKeys = ['unreadCount']
-  }
-
-  render () {
-    let unread =
-      this.state.unreadCount === 0
-        ? null
-        : <span>Unread threads: {this.state.unreadCount}</span>
-
-    return (
-      <div className='thread-count'>
-        {unread}
-      </div>
+function ThreadList (props) {
+  let resultList = []
+  props.thread.forEach((thread, threadId) => {
+    resultList.push(
+      <ThreadItem
+        key={threadId}
+        threadId={thread.threadId}
+        active={props.curThreadId === thread.threadId}
+        name={thread.name}
+        text={thread.text}
+        date={new Date()}
+      />
     )
-  }
+  })
+
+  return (
+    <ul className='thread-list'>
+      {resultList}
+    </ul>
+  )
 }
 
+function UnreadSection () {
+  return (
+    <Subscribe to={[messageThreadContainer]}>
+      {mtc => (
+
+        <div className='thread-count'>
+          {mtc.state.unreadCount === 0
+            ? null
+            : <span>Unread threads: {mtc.state.unreadCount}</span>
+          }
+        </div>
+
+      )}
+    </Subscribe>
+  )
+}
+/*
 function NewTicketDialog (props) {
   return (
     <div>
@@ -85,13 +89,9 @@ function NewTicketDialog (props) {
   )
 }
 
-export default class ThreadSection extends Reflux.Component {
-  constructor (props) {
-    super(props)
-    this.store = MessageStore
-    this.storeKeys = ['threads', 'currentThreadID']
-  }
-
+            <NewTicketDialog that={this} />
+*/
+export default class ThreadSection extends React.Component {
   createThread () {
     messageThreadContainer.modeNewThread()
   }
@@ -119,21 +119,10 @@ export default class ThreadSection extends Reflux.Component {
             <div>
               <Button color='primary' onClick={() => this.createThread()}>New Thread</Button>{' '}
             </div>
-            <NewTicketDialog that={this} />
-            <ul className='thread-list'>
-              { mtc.state.thread.map(thread => {
-                return (
-                  <ThreadListItem
-                    key={thread.id}
-                    threadID={thread.id}
-                    active={false}
-                    name={thread.name}
-                    text={thread.text}
-                    date={new Date()}
-                  />
-                )
-              })}
-            </ul>
+            <ThreadList
+              thread={mtc.state.thread}
+              curThreadId={mtc.state.curThreadId}
+            />
             <UnreadSection />
             <MessageSending />
           </div>

@@ -1,49 +1,55 @@
 import React from 'react'
-import Reflux from 'reflux'
+import { Subscribe } from 'unstated'
 import ReactDOM from 'react-dom'
 import MessageComposer from './MessageComposer'
-import MessageListItem from './MessageListItem'
-import MessageStore from '../MessageStore'
 
-function getMessageListItem (message) {
+import messageThreadContainer from '../containers/messageThread'
+
+function MessageItem (props) {
   return (
-    <MessageListItem
-      key={message.id}
-      message={message}
-    />
+
+    <li className='message-list-item'>
+      <h5 className='message-author-name'>{props.message.authorName}</h5>
+      <div className='message-time'>
+        {props.message.date.toLocaleTimeString()}
+      </div>
+      <div className='message-text'>{props.message.text}</div>
+    </li>
+
   )
 }
 
-export default class MessageSection extends Reflux.Component {
-  constructor (props) {
-    super(props)
-    this.store = MessageStore
-    this.storeKeys = ['currentThreadName', 'currentThreadID', 'threads']
-  }
-
+export default class MessageSection extends React.Component {
   render () {
-    let messageListItems =
-      (this.state.currentThreadID && this.state.threads[this.state.currentThreadID])
-        ? this.state.threads[this.state.currentThreadID].map(getMessageListItem)
-        : null
-
-    let composer =
-      this.state.currentThreadID
-        ? <MessageComposer threadId={this.state.currentThreadID} threadName={this.state.currentThreadName} />
-        : null
-
     return (
-      <div className='message-section'>
-        <h3 className='message-thread-heading'>{this.state.currentThreadName}</h3>
-        <ul className='message-list' ref='messageList'>
-          {messageListItems}
-        </ul>
-        {composer}
-      </div>
+      <Subscribe to={[messageThreadContainer]}>
+        {mtc => (
+
+          <div className='message-section'>
+            <h3 className='message-thread-heading'>{mtc.state.curThreadName}</h3>
+            <ul className='message-list' ref='messageList'>
+              {mtc.state.messages.map(message =>
+                <MessageItem
+                  key={message.id}
+                  message={message}
+                />
+              )}
+            </ul>
+            {
+              mtc.state.curThreadId
+                ? <MessageComposer threadId={mtc.state.curThreadId} threadName={mtc.state.curThreadName} />
+                : null
+            }
+          </div>
+
+        )}
+      </Subscribe>
     )
   }
 
   componentDidUpdate () {
+    console.log('componentDidUpdate');
+    
     this._scrollToBottom()
   }
 

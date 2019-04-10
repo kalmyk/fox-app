@@ -1,12 +1,11 @@
 'use strict'
 
 const FoxRouter = require('fox-wamp')
-const QMSG = require('fox-wamp/lib/messages')
 
 let messages = [
   {
     id: 'm_1',
-    threadID: 't_1',
+    threadId: 't_1',
     threadName: 'Jing and Bill',
     authorName: 'Bill',
     text: 'Hey Jing, want to give a Flux talk at ForwardJS?',
@@ -14,7 +13,7 @@ let messages = [
   },
   {
     id: 'm_2',
-    threadID: 't_1',
+    threadId: 't_1',
     threadName: 'Jing and Bill',
     authorName: 'Bill',
     text: 'Seems like a pretty cool conference.',
@@ -22,7 +21,7 @@ let messages = [
   },
   {
     id: 'm_3',
-    threadID: 't_1',
+    threadId: 't_1',
     threadName: 'Jing and Bill',
     authorName: 'Jing',
     text: 'Sounds good.  Will they be serving dessert?',
@@ -30,7 +29,7 @@ let messages = [
   },
   {
     id: 'm_4',
-    threadID: 't_2',
+    threadId: 't_2',
     threadName: 'Dave and Bill',
     authorName: 'Bill',
     text: 'Hey Dave, want to get a beer after the conference?',
@@ -38,7 +37,7 @@ let messages = [
   },
   {
     id: 'm_5',
-    threadID: 't_2',
+    threadId: 't_2',
     threadName: 'Dave and Bill',
     authorName: 'Dave',
     text: 'Totally!  Meet you at the hotel bar.',
@@ -46,7 +45,7 @@ let messages = [
   },
   {
     id: 'm_6',
-    threadID: 't_3',
+    threadId: 't_3',
     threadName: 'Bill and Brian',
     authorName: 'Bill',
     text: 'Hey Brian, are you going to be talking about functional stuff?',
@@ -54,7 +53,7 @@ let messages = [
   },
   {
     id: 'm_7',
-    threadID: 't_3',
+    threadId: 't_3',
     threadName: 'Bill and Brian',
     authorName: 'Brian',
     text: 'At ForwardJS?  Yeah, of course.  See you there!',
@@ -78,13 +77,6 @@ class WampData extends FoxRouter {
         messages.push(kwargs.message)
         // console.log('EVENT', kwargs)
       })
-    })
-
-    this.on(QMSG.ON_SUBSCRIBED, (realm, actorTrace) => {
-      if (actorTrace.getUri() === 'tb.ticket') {
-        actorTrace.sendEvent({ data: { id: 1, title: 'ticket title 1' } })
-        actorTrace.sendEvent({ data: { id: 2, title: 'ticket title 2' } })
-      }
     })
   }
 }

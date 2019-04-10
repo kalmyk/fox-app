@@ -1,7 +1,7 @@
 {
     "name": "fox-app",
-    "version": "0.0.1",
-    "description": "Reflux Demo Apps",
+    "version": "0.0.2",
+    "description": "React Chat Demo Apps",
     "repository": "https://github.com/kalmyk/fox-app.git",
     "author": "Anatoly Tsapkov",
     "main": "lib/App.js",
@@ -19,7 +19,6 @@
         "react-modal": "^3.8.1",
         "react-router-dom": "^4.2.2",
         "reactstrap": "^7.1.0",
-        "reflux": "^6.4.1",
         "unstated": "^2.1.1"
     },
     "devDependencies": {

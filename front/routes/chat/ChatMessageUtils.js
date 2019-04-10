@@ -3,7 +3,7 @@ export function getCreatedMessageData (text, threadId, threadName) {
   var timestamp = Date.now()
   return {
     id: 'm_' + timestamp,
-    threadID: threadId,
+    threadId: threadId,
     threadName: threadName,
     authorName: 'Bill', // hard coded for the example
     date: new Date(timestamp),

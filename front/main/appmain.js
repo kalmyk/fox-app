@@ -10,7 +10,6 @@ import { Switch, Route, NavLink, BrowserRouter, HashRouter } from 'react-router-
 import * as dataServer from './dataServer'
 import messageThread from '../routes/chat/containers/messageThread'
 import ChatApp from '../routes/chat/components/ChatApp'
-import * as ChatActions from '../routes/chat/actions'
 import TicketApp from '../routes/ticket/components/TicketApp'
 import SchemaApp from '../routes/schema/components/SchemaApp'
 import Auth from './components/auth'
@@ -95,6 +94,5 @@ ReactDOM.render(
 Modal.setAppElement(document.getElementById('react'))
 
 dataServer.openConnection().then((result) => {
-  ChatActions.loadRawMessages()
   messageThread.connectServer()
 })

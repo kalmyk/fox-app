@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button } from 'reactstrap'
 
-import * as Actions from '../actions'
 import messageThreadContainer from '../containers/messageThread'
 
 let ENTER_KEY_CODE = 13
@@ -35,7 +34,6 @@ class MessageComposer extends React.Component {
       <div>
         <textarea
           className='message-composer'
-          name='message'
           value={this.state.text}
           onChange={this._onChange.bind(this)}
           onKeyDown={this._onKeyDown.bind(this)}
@@ -48,7 +46,6 @@ class MessageComposer extends React.Component {
   composeMessage () {
     let text = this.state.text.trim()
     if (text) {
-      Actions.createMessage(text, this.props.threadId, this.props.threadName)
       messageThreadContainer.composeMessage(text)
     }
     this.setState({ text: '' })
@@ -67,8 +64,7 @@ class MessageComposer extends React.Component {
 }
 
 MessageComposer.propTypes = {
-  threadId: PropTypes.string.isRequired,
-  threadName: PropTypes.string.isRequired
+  threadId: PropTypes.number.isRequired
 }
 
 export default MessageComposer
