@@ -20,6 +20,16 @@ function MessageItem (props) {
 }
 
 export default class MessageSection extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.ulMessageList = null
+
+    this.setUlMessageListRef = element => {
+      this.ulMessageList = element
+    }
+  }
+
   render () {
     return (
       <Subscribe to={[messageThreadContainer]}>
@@ -27,7 +37,7 @@ export default class MessageSection extends React.Component {
 
           <div className='message-section'>
             <h3 className='message-thread-heading'>{mtc.state.curThreadName}</h3>
-            <ul className='message-list' ref='messageList'>
+            <ul className='message-list' ref={this.setUlMessageListRef}>
               {mtc.state.messages.map(message =>
                 <MessageItem
                   key={message.id}
@@ -48,15 +58,15 @@ export default class MessageSection extends React.Component {
   }
 
   componentDidUpdate () {
-    console.log('componentDidUpdate');
-    
+    console.log('componentDidUpdate')
     this._scrollToBottom()
   }
 
   _scrollToBottom () {
-    if (this.refs.messageList) {
-      let ul = ReactDOM.findDOMNode(this.refs.messageList)
-      ul.scrollTop = ul.scrollHeight
+    if (this.ulMessageList) {
+      console.log('_scrollToBottom')
+//    let ul = ReactDOM.findDOMNode(this.refs.messageList)
+      this.ulMessageList.scrollTop = this.ulMessageList.scrollHeight
     }
   }
 }

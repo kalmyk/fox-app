@@ -1,6 +1,6 @@
 {
     "name": "fox-app",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Jeta Demo Apps",
     "repository": "https://github.com/kalmyk/fox-app.git",
     "author": "Anatoly Tsapkov",
@@ -9,7 +9,7 @@
         "body-parser": "*",
         "cookie-parser": "^1.4.4",
         "express": "^4.15.2",
-        "fox-wamp": "^0.5.15",
+        "fox-wamp": "^0.6.3",
         "jsonwebtoken": "^8.5.1",
         "passport": "^0.4.0",
         "passport-google-token": "^0.1.2"
