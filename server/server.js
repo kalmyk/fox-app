@@ -7,10 +7,8 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const passport = require('passport')
 
-const { WampData } = require('./data/wamp_data')
 const authRouter = require('./auth/router.express').router
-
-const PORT = process.env.PORT || 9000
+const PORT = process.env.PORT || 9009
 
 const app = express()
   .use(bodyParser.json())
@@ -24,7 +22,3 @@ const app = express()
 
 const httpServer = http.createServer(app)
 httpServer.listen(PORT, () => console.log(`Listening on ${PORT}`))
-
-let wd = new WampData()
-wd.listenWAMP({ server: httpServer, path: '/wamp' })
-wd.setLogTrace(true)
