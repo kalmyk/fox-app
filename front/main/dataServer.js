@@ -1,8 +1,14 @@
-var autobahn = require('autobahn')
+let autobahn = require('autobahn')
+let wsuri
+
+if (document.location.host === 'localhost') {
+  wsuri = 'ws://127.0.0.1:9000'
+} else {
+  wsuri = (document.location.protocol === 'http:' ? 'ws://' : 'wss://') + window.location.host + '/wamp'
+}
 
 let connection = new autobahn.Connection({
-  // url: 'ws:' + window.location.host + '/wamp',
-  url: 'ws:127.0.0.1:9000',
+  url: wsuri,
   realm: 'realm1'
 })
 
